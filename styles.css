@@ -5,6 +5,12 @@ body {
     text-align: center;
 }
 
+/* Aplicar la fuente Quicksand solo en los títulos */
+h1, h2, h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+}
+
 header {
     background-color: #ff9800; /* Color naranja cálido */
     color: white;
@@ -20,6 +26,7 @@ section {
     box-shadow: 0px 0px 10px #ccc;
 }
 
+/* Ajustar imágenes con bordes redondeados */
 img {
     width: 80%;
     max-width: 400px;
