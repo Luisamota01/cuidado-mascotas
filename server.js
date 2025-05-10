@@ -1,53 +1,66 @@
 const express = require("express");
-const sqlite3 = require("sqlite3").verbose();
 const cors = require("cors");
-const bodyParser = require("body-parser");
+const sqlite3 = require("sqlite3").verbose();
+const { open } = require("sqlite");
 
 const app = express();
-app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // 💡 Permite procesar datos del formulario correctamente
+app.use(cors({ origin: "*" }));
 
-// Conectar a SQLite
-const db = new sqlite3.Database("./database.db");
+let db;
 
-// Crear tabla si no existe
-db.run(`
-    CREATE TABLE IF NOT EXISTS contactos (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nombre TEXT,
-        correo TEXT,
-        comentario TEXT
-    )
-`);
-
-// Ruta para agregar un contacto
-app.post("/contact/add", (req, res) => {
-    const { nombre, correo, comentario } = req.body;
-    db.run(
-        "INSERT INTO contactos (nombre, correo, comentario) VALUES (?, ?, ?)",
-        [nombre, correo, comentario],
-        (err) => {
-            if (err) {
-                res.status(500).json({ error: "Error al guardar el contacto" });
-            } else {
-                res.status(200).json({ mensaje: "Contacto guardado con éxito" });
-            }
-        }
-    );
-});
-
-// Ruta para obtener la lista de contactos
-app.get("/contact/list", (req, res) => {
-    db.all("SELECT * FROM contactos", [], (err, rows) => {
-        if (err) {
-            res.status(500).json({ error: "Error al obtener los contactos" });
-        } else {
-            res.json(rows);
-        }
+async function iniciarDB() {
+    db = await open({
+        filename: "./database.db",
+        driver: sqlite3.Database,
     });
+
+    await db.run(`
+        CREATE TABLE IF NOT EXISTS contactos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT NOT NULL,
+            correo TEXT NOT NULL,
+            comentario TEXT NOT NULL,
+            fecha TEXT NOT NULL
+        )
+    `);
+}
+iniciarDB();
+
+// 🔹 Ruta para obtener la lista de contactos
+app.get("/contact/list", async (req, res) => {
+    try {
+        const contactos = await db.all("SELECT * FROM contactos ORDER BY fecha DESC");
+        res.json(contactos);
+    } catch (error) {
+        console.error("Error al obtener contactos:", error);
+        res.status(500).json({ mensaje: "🚨 Error al obtener los contactos." });
+    }
 });
 
-// Iniciar servidor
-app.listen(3000, () => {
-    console.log("Servidor corriendo en http://localhost:3000");
+// 📌 Ruta para agregar un contacto (corregida)
+app.post("/contact/add", async (req, res) => {
+    const { name, email, comment } = req.body;  // Usar los nombres correctos
+
+    console.log("Datos recibidos:", req.body); // 🐞 Depuración: muestra los datos que llegan desde el formulario
+
+    if (!name || !email || !comment) {  
+        return res.status(400).json({ mensaje: "⚠️ Todos los campos son obligatorios." });
+    }
+
+    try {
+        await db.run("INSERT INTO contactos (nombre, correo, comentario, fecha) VALUES (?, ?, ?, ?)", 
+            [name, email, comment, new Date().toISOString()]
+        );
+        res.json({ mensaje: "✅ ¡Contacto guardado con éxito!" });
+    } catch (error) {
+        console.error("Error al guardar contacto:", error);
+        res.status(500).json({ mensaje: "🚨 Error al guardar el contacto." });
+    }
+});
+
+// 🔹 Iniciar el servidor
+app.listen(10000, () => {
+    console.log("🚀 Servidor corriendo en el puerto 10000");
 });
