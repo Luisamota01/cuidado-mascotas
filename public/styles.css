@@ -1,4 +1,3 @@
-/* Configuración general del cuerpo */
 body {
     font-family: Arial, sans-serif;
     background-color: #f5f5dc;
@@ -6,7 +5,6 @@ body {
     text-align: center;
 }
 
-/* Encabezado */
 header {
     background-color: #ff9800;
     color: white;
@@ -14,7 +12,6 @@ header {
     font-size: 24px;
 }
 
-/* Contenedor de los formularios */
 #contacto, #pago {
     display: flex !important;
     flex-direction: column !important;
@@ -22,101 +19,55 @@ header {
     width: 100% !important;
     max-width: 500px !important;
     margin: 0 auto !important;
-    visibility: visible !important;
 }
 
-/* Separación entre formularios */
-#contacto {
-    margin-bottom: 40px !important;
-}
-
-/* Formularios más compactos */
 form {
-    background-color: white !important;
-    padding: 20px !important;
-    border: 1px solid #ccc !important;
-    border-radius: 10px !important;
-    width: 100% !important;
-    max-width: 380px !important;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 380px;
 }
 
-/* Campos de formulario con mejor ajuste */
+/* Ajustar campos de formulario */
 input, select, textarea {
-    padding: 10px !important;
-    border: 1px solid #ddd !important;
-    border-radius: 5px !important;
-    width: 90% !important;
-    font-size: 16px !important;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 90%;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+#paymentForm input,
+#paymentForm select,
+#paymentForm button {
+    display: block !important;
+    visibility: visible !important;
+    width: 100% !important;
+    max-width: 400px !important;
     margin-bottom: 15px !important;
 }
 
-/* Ajustar alineación de "Año de expiración" */
-#pago .expiracion {
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-    flex-wrap: wrap !important;
-}
-
-#pago label[for="expYear"] {
-    white-space: nowrap !important;
-    margin-right: 5px !important;
-}
-
-/* Estilos para la tabla de contactos */
-#lista-contactos {
-    text-align: center !important;
-    margin-top: 40px !important;
-}
-
-table {
-    width: 100% !important;
-    max-width: 600px !important;
-    margin: 0 auto !important;
-    border-collapse: collapse !important;
-    background-color: #fff !important;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1) !important;
-}
-
-/* Asegurar que los encabezados y datos estén alineados correctamente */
-th, td {
-    padding: 12px !important;
-    border: 1px solid #ddd !important;
-    text-align: center !important;
-    vertical-align: middle !important;
-}
-
-/* Ajustar el estilo de los encabezados */
-th {
-    background-color: #007BFF !important;
-    color: white !important;
-    font-weight: bold !important;
-}
-
-/* Dar un mejor formato a las filas */
-tr:nth-child(even) {
-    background-color: #f5f5f5 !important;
-}
-
-/* Ajustar tamaño del botón */
+/* Botón de pago */
 button {
-    background-color: #007BFF !important;
-    color: white !important;
-    padding: 10px !important;
-    border: none !important;
-    border-radius: 5px !important;
-    cursor: pointer !important;
-    font-size: 16px !important;
-    width: 100% !important;
+    background-color: #007BFF;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
 }
 button:hover {
-    background-color: #0056b3 !important;
+    background-color: #0056b3;
 }
 
-/* Pie de página */
 footer {
-    background: #222 !important;
-    color: white !important;
-    padding: 20px !important;
-    margin-top: 40px !important;
+    background: #222;
+    color: white;
+    padding: 20px;
+    margin-top: 40px;
 }
