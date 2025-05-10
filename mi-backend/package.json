@@ -1,0 +1,52 @@
+{
+<<<<<<< HEAD
+  "name": "mi-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+=======
+  "name": "cuidado-canino",
+  "version": "1.0.0",
+  "description": "Página web de guardería y paseo de perros",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "express": "^4.21.2",
+    "semver": "^7.7.1",
+    "simple-update-notifier": "^2.0.0",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Luisamota01/cuidado-mascotas.git"
+>>>>>>> c2015ce86fb795e2fafb6e6646a578d356564ffa
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+<<<<<<< HEAD
+  "description": "",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "sqlite3": "^5.1.7"
+  }
+=======
+  "bugs": {
+    "url": "https://github.com/Luisamota01/cuidado-mascotas/issues"
+  },
+  "homepage": "https://github.com/Luisamota01/cuidado-mascotas#readme"
+>>>>>>> c2015ce86fb795e2fafb6e6646a578d356564ffa
+}
