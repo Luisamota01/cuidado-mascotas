@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardería y Paseo Canino</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>🐶 Guardería y Paseo Canino 🐾</h1>
+        <p>La mejor atención para tu compañero peludo, con amor y seguridad.</p>
+    </header>
+
+    <section id="servicios">
+        <h2>🌟 Nuestros Servicios</h2>
+        <ul>
+            <li>🚶 Paseos diarios con supervisión profesional.</li>
+            <li>🏠 Guardería cómoda y segura.</li>
+            <li>🐕 Cuidado personalizado según la necesidad de cada perro.</li>
+            <li>🩺 Atención y bienestar garantizados.</li>
+        </ul>
+    </section>
+
+    <section id="beneficios">
+        <h2>🎉 Beneficios de nuestro servicio</h2>
+        <ul>
+            <li>✔ Actividad física y diversión para tu perro.</li>
+            <li>✔ Cuidado de expertos en bienestar animal.</li>
+            <li>✔ Tranquilidad para los dueños, sabiendo que su perro está seguro.</li>
+        </ul>
+    </section>
+
+    <div class="form-container">
+        <section id="contacto">
+            <h2>📩 Contáctanos</h2>
+            <form id="contactForm" action="http://localhost:10000/contact/add" method="POST">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email" placeholder="Tu correo" required>
+
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+
+                <label for="comment">Comentario:</label>
+                <textarea id="comment" name="comment" placeholder="Escribe tu mensaje" required></textarea>
+
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+
+        <section id="pago">
+            <h2>💳 Realizar Pago</h2>
+            <form id="paymentForm">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="cardholder">Nombre del titular de la tarjeta:</label>
+                <input type="text" id="cardholder" name="cardholder" required>
+
+                <label for="cardNumber">Número de tarjeta:</label>
+                <input type="text" id="cardNumber" name="cardNumber" required maxlength="16">
+
+                <label>Fecha de expiración:</label>
+                <div class="expiration">
+                    <select id="expMonth" name="expMonth" required>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+
+                    <select id="expYear" name="expYear" required>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                        <option value="2031">2031</option>
+                        <option value="2032">2032</option>
+                        <option value="2033">2033</option>
+                        <option value="2034">2034</option>
+                        <option value="2035">2035</option>
+                    </select>
+                </div>
+
+                <label for="cvv">Código de seguridad (CVV/CVC):</label>
+                <input type="text" id="cvv" name="cvv" required maxlength="3">
+
+                <label for="amount">Monto a pagar:</label>
+                <input type="number" id="amount" name="amount" required min="1">
+
+                <label for="currency">Moneda:</label>
+                <select id="currency" name="currency" required>
+                    <option value="USD">USD</option>
+                    <option value="VES">VES</option>
+                </select>
+
+                <button type="submit">Pagar</button>
+            </form>
+        </section>
+    </div>
+
+    <section id="lista-contactos">
+        <h2>📋 Lista de Contactos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Comentario</th>
+                </tr>
+            </thead>
+            <tbody id="contactos-body">
+                <!-- Aquí se insertarán los contactos dinámicamente -->
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <p>📞 Contáctanos: +58 424-513-0304</p>
+        <p>📍 Ubicación: Avenida Principal, Caracas</p>
+        <p>🔗 Síguenos en nuestras redes sociales:</p>
+        <a href="#">Instagram</a> | <a href="#">Facebook</a>
+    </footer>
+
+    <script>
+    async function cargarContactos() {
+        try {
+            const response = await fetch("http://localhost:10000/contact/list");
+            const contactos = await response.json();
+            const contactosBody = document.getElementById("contactos-body");
+            contactosBody.innerHTML = contactos.length
+                ? contactos.map(contacto => `<tr><td>${contacto.nombre}</td><td>${contacto.correo}</td><td>${contacto.comentario}</td></tr>`).join("")
+                : `<tr><td colspan="3">🔍 No hay contactos registrados</td></tr>`;
+        } catch (error) {
+            console.error("Error al cargar contactos:", error);
+        }
+    }
+
+    document.getElementById("contactForm").addEventListener("submit", async function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+
+        try {
+            const response = await fetch("http://localhost:10000/contact/add", {
+                method: "POST",
+                body: new URLSearchParams(formData),
+            });
+
+            const resultado = await response.json();
+            alert(resultado.mensaje);
+
+            if (response.ok) {
+                cargarContactos();
+            }
+        } catch (error) {
+            console.error("Error al enviar contacto:", error);
+        }
+    });
+
+    window.onload = cargarContactos;
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5dc; /* Color beige suave */
+    color: #333;
+    text-align: center;
+}
+
+/* Aplicar la fuente Quicksand solo en los títulos */
+h1, h2, h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+}
+
+header {
+    background-color: #ff9800; /* Color naranja cálido */
+    color: white;
+    padding: 20px;
+    font-size: 24px;
+}
+
+section {
+    margin: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #ccc;
+}
+
+/* Ajustar imágenes con bordes redondeados */
+img {
+    width: 80%;
+    max-width: 400px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+footer {
+    background: #222;
+    color: white;
+    padding: 15px;
+}
